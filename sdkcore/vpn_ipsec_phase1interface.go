@@ -3,9 +3,9 @@ package forticlient
 import (
 	"bytes"
 	"encoding/json"
+	"fmt"
 	"io/ioutil"
 	"log"
-	"fmt"
 )
 
 // JSONVPNIPsecPhase1Interface contains the parameters for Create and Update API function
@@ -29,6 +29,7 @@ type JSONVPNIPsecPhase1Interface struct {
 	ModeCfg             string     `json:"mode-cfg"`
 	Authmethod          string     `json:"authmethod"`
 	AuthmethodRemote    string     `json:"authmethod-remote"`
+	IkeVersion          int        `json:"ike-version"`
 }
 
 // JSONCreateVPNIPsecPhase1InterfaceOutput contains the output results for Create API function
@@ -388,6 +389,9 @@ func (c *FortiSDKClient) ReadVPNIPsecPhase1Interface(mkey string) (output *JSONV
 		}
 		if mapTmp["authmethod-remote"] != nil {
 			output.AuthmethodRemote = mapTmp["authmethod-remote"].(string)
+		}
+		if mapTmp["ike-version"] != nil {
+			output.IkeVersion = mapTmp["ike-version"].(int)
 		}
 
 	} else {
